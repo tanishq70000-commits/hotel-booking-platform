@@ -1,7 +1,7 @@
 # Hotel Booking Platform — Cloud Deployment & CI/CD
 
-[![CI/CD Pipeline](https://github.com/algions/hotel-reservation-api/actions/workflows/ci.yml/badge.svg)](https://github.com/algions/hotel-reservation-api/actions/workflows/ci.yml)
-[![Docker Image](https://img.shields.io/badge/container-ghcr.io-blue.svg)](https://github.com/algions/hotel-reservation-api/pkgs/container/hotel-reservation-api)
+[![CI/CD Pipeline](https://github.com/tanishq70000-commits/hotel-booking-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/tanishq70000-commits/hotel-booking-platform/actions/workflows/ci.yml)
+[![Docker Image](https://img.shields.io/badge/container-ghcr.io-blue.svg)](https://github.com/tanishq70000-commits/hotel-booking-platform/pkgs/container/hotel-booking-platform)
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688.svg)](https://fastapi.tiangolo.com)
 [![PostgreSQL 16](https://img.shields.io/badge/PostgreSQL-16-336791.svg)](https://www.postgresql.org/)
