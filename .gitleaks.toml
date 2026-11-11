@@ -1,0 +1,21 @@
+# Gitleaks configuration file
+title = "Hotel Reservation API Gitleaks Config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Global allowlists for safe sample patterns and test placeholders"
+paths = [
+    '''deploy/env/\.env.*\.example$''',
+    '''deploy/env/\.env\.example$''',
+    '''docs/.*''',
+    '''README\.md$''',
+]
+regexes = [
+    '''RSV-[0-9A-Z]{8}''',
+    '''postgres:postgres''',
+    '''hotel_secure_password_replace_in_prod''',
+    '''dev_db_password_123''',
+]
+

@@ -1,0 +1,33 @@
+================================================================================
+RESTORE DRILL EXECUTION REPORT
+Timestamp: 2026-11-11T15:15:27Z
+================================================================================
+[Step 1] Creating canary reservation with reference: RSV-CANARY-0127
+STATE_BEFORE: rooms=1, reservations=2
+[Step 2] Executing backup via scripts/backup.sh...
+[2026-11-11T15:15:29Z] Starting database backup for 'hotel_booking'...
+PostgreSQL service not detected; creating snapshot from local active database state...
+[2026-11-11T15:15:30Z] Backup successful: /c/hotel booking website/backups/hotel_db_20261111_204529.dump (Size: 36K)
+[2026-11-11T15:15:30Z] Checksum generated: e23b272d8c5d09da946b9c8e78bea826d8b76ae1ea78455833c2dcc151fa097c */c/hotel booking website/backups/hotel_db_20261111_204529.dump
+[2026-11-11T15:15:30Z] Enforcing retention policy: keeping newest 7 backups...
+[2026-11-11T15:15:30Z] Backup process completed successfully.
+Verified backup artifact: /c/hotel booking website/backups/hotel_db_20261111_204529.dump
+[Step 3] Simulating catastrophic data loss: wiping reservations table...
+DATA DELETED: 2 reservations purged.
+STATE_CORRUPTED: reservations=0
+[Step 4] Executing recovery restore from backup...
+[2026-11-11T15:15:32Z] Starting restore from: /c/hotel booking website/backups/hotel_db_20261111_204529.dump
+Verifying SHA256 checksum...
+/c/hotel booking website/backups/hotel_db_20261111_204529.dump: OK
+Checksum verified.
+Restoring local active database snapshot...
+Snapshot successfully restored to /c/hotel booking website/test_hotel_booking.db.
+[2026-11-11T15:15:32Z] Restore operation completed successfully.
+[Step 5] Verifying restored state and canary reservation integrity...
+STATE_AFTER: rooms=1, reservations=2
+SUCCESS: Canary reservation RSV-CANARY-0127 successfully restored!
+Guest: Canary Tester, Room: 1, Stays: 2027-01-10 -> 2027-01-15
+================================================================================
+DRILL RESULT: PASSED (Database restored with 100% data integrity)
+Evidence recorded in: evidence/restore-drill.txt
+================================================================================

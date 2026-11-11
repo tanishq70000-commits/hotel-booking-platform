@@ -1,0 +1,47 @@
+================================================================================
+CONCURRENCY RACE CONDITION ACCEPTANCE DEMO
+Timestamp: 2026-11-11T14:54:21Z
+================================================================================
+Firing 10 concurrent conflicting reservation requests for Room 1 (2026-12-21 -> 2026-12-26)...
+{"timestamp": "2026-11-11T14:54:24.179187+00:00", "level": "INFO", "logger": "app.main", "message": "POST /reservations -> 201 (70.97ms)", "request_id": "f7bc33ee-6d53-4a57-9691-42befa8e08fd", "method": "POST", "path": "/reservations", "status_code": 201, "latency_ms": 70.97}
+{"timestamp": "2026-11-11T14:54:24.183135+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: POST http://testserver/reservations \"HTTP/1.1 201 Created\""}
+{"timestamp": "2026-11-11T14:54:24.184135+00:00", "level": "INFO", "logger": "app.main", "message": "POST /reservations -> 409 (76.95ms)", "request_id": "3d3d0fc7-27a8-4b75-a28d-fb2e6e092e6a", "method": "POST", "path": "/reservations", "status_code": 409, "latency_ms": 76.95}
+{"timestamp": "2026-11-11T14:54:24.187938+00:00", "level": "INFO", "logger": "app.main", "message": "POST /reservations -> 409 (72.22ms)", "request_id": "0bf115d8-8f77-4f6a-a0f2-de6c76ee0dff", "method": "POST", "path": "/reservations", "status_code": 409, "latency_ms": 72.22}
+{"timestamp": "2026-11-11T14:54:24.189940+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: POST http://testserver/reservations \"HTTP/1.1 409 Conflict\""}
+{"timestamp": "2026-11-11T14:54:24.198102+00:00", "level": "INFO", "logger": "app.main", "message": "POST /reservations -> 409 (79.67ms)", "request_id": "5bd0af90-614b-47d8-8a38-2a5268259812", "method": "POST", "path": "/reservations", "status_code": 409, "latency_ms": 79.67}
+{"timestamp": "2026-11-11T14:54:24.200726+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: POST http://testserver/reservations \"HTTP/1.1 409 Conflict\""}
+{"timestamp": "2026-11-11T14:54:24.200726+00:00", "level": "INFO", "logger": "app.main", "message": "POST /reservations -> 409 (81.65ms)", "request_id": "7e633678-31b7-40af-9446-b311fabe9071", "method": "POST", "path": "/reservations", "status_code": 409, "latency_ms": 81.65}
+{"timestamp": "2026-11-11T14:54:24.206808+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: POST http://testserver/reservations \"HTTP/1.1 409 Conflict\""}
+{"timestamp": "2026-11-11T14:54:24.208016+00:00", "level": "INFO", "logger": "app.main", "message": "POST /reservations -> 409 (88.9ms)", "request_id": "9233945c-2346-45e8-b520-bc37ff1cae50", "method": "POST", "path": "/reservations", "status_code": 409, "latency_ms": 88.9}
+{"timestamp": "2026-11-11T14:54:24.208967+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: POST http://testserver/reservations \"HTTP/1.1 409 Conflict\""}
+{"timestamp": "2026-11-11T14:54:24.211098+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: POST http://testserver/reservations \"HTTP/1.1 409 Conflict\""}
+{"timestamp": "2026-11-11T14:54:24.213338+00:00", "level": "INFO", "logger": "app.main", "message": "POST /reservations -> 409 (86.78ms)", "request_id": "3a9aa030-db16-4023-abf3-7c9b46f88216", "method": "POST", "path": "/reservations", "status_code": 409, "latency_ms": 86.78}
+{"timestamp": "2026-11-11T14:54:24.217165+00:00", "level": "INFO", "logger": "app.main", "message": "POST /reservations -> 409 (94.22ms)", "request_id": "803a239e-a15e-419a-a00e-92fdb8bc83cd", "method": "POST", "path": "/reservations", "status_code": 409, "latency_ms": 94.22}
+{"timestamp": "2026-11-11T14:54:24.218226+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: POST http://testserver/reservations \"HTTP/1.1 409 Conflict\""}
+{"timestamp": "2026-11-11T14:54:24.222905+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: POST http://testserver/reservations \"HTTP/1.1 409 Conflict\""}
+{"timestamp": "2026-11-11T14:54:24.223961+00:00", "level": "INFO", "logger": "app.main", "message": "POST /reservations -> 409 (95.14ms)", "request_id": "94bc35b0-d5fc-48ad-81b7-68670cefea6d", "method": "POST", "path": "/reservations", "status_code": 409, "latency_ms": 95.14}
+{"timestamp": "2026-11-11T14:54:24.225597+00:00", "level": "INFO", "logger": "app.main", "message": "POST /reservations -> 409 (97.64ms)", "request_id": "f796f686-48b2-4baf-a067-cd750ac95689", "method": "POST", "path": "/reservations", "status_code": 409, "latency_ms": 97.64}
+{"timestamp": "2026-11-11T14:54:24.226764+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: POST http://testserver/reservations \"HTTP/1.1 409 Conflict\""}
+{"timestamp": "2026-11-11T14:54:24.227315+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: POST http://testserver/reservations \"HTTP/1.1 409 Conflict\""}
+
+--- Results Summary ---
+-> HTTP 201 CREATED   | Reference: RSV-3V69PQPV | Guest: Demo Guest 6
+-> HTTP 409 CONFLICT  | Detail: Room 1 is already reserved for the requested dates
+-> HTTP 409 CONFLICT  | Detail: Room 1 is already reserved for the requested dates
+-> HTTP 409 CONFLICT  | Detail: Room 1 is already reserved for the requested dates
+-> HTTP 409 CONFLICT  | Detail: Room 1 is already reserved for the requested dates
+-> HTTP 409 CONFLICT  | Detail: Room 1 is already reserved for the requested dates
+-> HTTP 409 CONFLICT  | Detail: Room 1 is already reserved for the requested dates
+-> HTTP 409 CONFLICT  | Detail: Room 1 is already reserved for the requested dates
+-> HTTP 409 CONFLICT  | Detail: Room 1 is already reserved for the requested dates
+-> HTTP 409 CONFLICT  | Detail: Room 1 is already reserved for the requested dates
+
+Total Requests: 10
+Success Count (201 Created):  1
+Conflict Count (409 Conflict): 9
+
+[VERIFIED] Concurrency protection succeeded: exactly 1 booking confirmed, 9 rejected with 409.
+================================================================================
+DEMO EXECUTION COMPLETE
+Saved audit log to: evidence/concurrency-demo.txt
+================================================================================

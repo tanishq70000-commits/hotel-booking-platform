@@ -1,0 +1,51 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+/ENV/
+/env/
+!deploy/env/
+!deploy/env/*.example
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.db
+*.db*
+*.sqlite3
+test_hotel_booking.db*
+
+# Environment files & secrets (DO NOT COMMIT REAL SECRETS)
+.env
+.env.*
+!.env.example
+!deploy/env/*.example
+
+# IDEs & OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Backups & dumps
+backups/
+*.dump
+*.dump.sha256
+
+# Document assessments
+*.docx

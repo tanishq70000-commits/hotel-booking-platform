@@ -1,0 +1,36 @@
+{
+    admin off
+}
+
+# Redirect HTTP to HTTPS
+:80 {
+    redir https://{host}{uri} permanent
+}
+
+# Primary HTTPS endpoint with local self-signed CA (tls internal)
+:443, localhost {
+    tls internal
+
+    # Hardened HTTP Security Headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+
+    # Request body size limiter (protect against large payload abuse)
+    request_body {
+        max_size 1MB
+    }
+
+    # Reverse proxy to backend FastAPI service on internal Docker network
+    reverse_proxy app:8000 {
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto https
+        header_up Host {host}
+    }
+}
+

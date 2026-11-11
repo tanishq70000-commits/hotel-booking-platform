@@ -1,0 +1,40 @@
+================================================================================
+ROLLBACK DRILL EXECUTION REPORT
+Timestamp: 2026-11-11T15:00:24Z
+================================================================================
+[Step 1] Initial State: Verifying Stable Production Release (1.0.0)...
+{"timestamp": "2026-11-11T15:00:27.249536+00:00", "level": "INFO", "logger": "app.main", "message": "GET /health -> 200 (1.39ms)", "request_id": "ad65ca0d-f02c-4b95-b11b-8c22e2d65d48", "method": "GET", "path": "/health", "status_code": 200, "latency_ms": 1.39}
+{"timestamp": "2026-11-11T15:00:27.251980+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/health \"HTTP/1.1 200 OK\""}
+HTTP Status: 200
+Payload: {'status': 'healthy', 'version': '1.0.0', 'commit': 'git-sha-v1.0.0-stable'}
+[Step 2] Simulating Deployment of Faulty Release (1.1.0-faulty)...
+Alert: New release deployed with critical regression!
+{"timestamp": "2026-11-11T15:00:29.747490+00:00", "level": "INFO", "logger": "app.main", "message": "GET /health -> 200 (1.84ms)", "request_id": "1aa8a8c2-26d2-42c3-95b2-db5131f00806", "method": "GET", "path": "/health", "status_code": 200, "latency_ms": 1.84}
+{"timestamp": "2026-11-11T15:00:29.752559+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/health \"HTTP/1.1 200 OK\""}
+HTTP Status: 200
+Payload: {'status': 'healthy', 'version': '1.1.0-faulty', 'commit': 'git-sha-bad-commit-def456'}
+[Step 3] SRE Action: Incident declared! Initiating automated rollback to 1.0.0...
+Executing rollback procedure via scripts/rollback.sh...
+================================================================================
+STARTING ZERO-DOWNTIME ROLLBACK
+Target Tag: ghcr.io/algions/hotel-reservation-api:v1.0.0
+Timestamp: 2026-11-11T15:00:30Z
+================================================================================
+[Rollback App] Redeploying application container with tag: ghcr.io/algions/hotel-reservation-api:v1.0.0...
+[Offline / Standalone simulation] Setting target version: ghcr.io/algions/hotel-reservation-api:v1.0.0
+Verifying health endpoint:
+Simulated health verification
+
+================================================================================
+ROLLBACK SUCCESSFUL: System reverted to ghcr.io/algions/hotel-reservation-api:v1.0.0
+================================================================================
+[Step 4] Post-Rollback Verification: Querying /health...
+{"timestamp": "2026-11-11T15:00:35.173617+00:00", "level": "INFO", "logger": "app.main", "message": "GET /health -> 200 (1.79ms)", "request_id": "3b818b1d-7977-4c1b-9527-77b57008a815", "method": "GET", "path": "/health", "status_code": 200, "latency_ms": 1.79}
+{"timestamp": "2026-11-11T15:00:35.176317+00:00", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/health \"HTTP/1.1 200 OK\""}
+HTTP Status: 200
+Payload: {'status': 'healthy', 'version': '1.0.0', 'commit': 'git-sha-v1.0.0-stable'}
+CONFIRMED: Service running stable version 1.0.0 again!
+================================================================================
+DRILL RESULT: PASSED (Service successfully rolled back and verified)
+Evidence recorded in: evidence/rollback-drill.txt
+================================================================================

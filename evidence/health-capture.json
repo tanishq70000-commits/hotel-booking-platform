@@ -1,0 +1,27 @@
+{
+  "health_endpoint": {
+    "status_code": 200,
+    "headers": {
+      "content-length": "59",
+      "content-type": "application/json",
+      "x-request-id": "95a967b5-1350-4b54-8b9d-25a825ffebc5"
+    },
+    "body": {
+      "status": "healthy",
+      "version": "1.0.0",
+      "commit": "dev-local"
+    }
+  },
+  "ready_endpoint": {
+    "status_code": 200,
+    "headers": {
+      "content-length": "41",
+      "content-type": "application/json",
+      "x-request-id": "28dba7ca-08f8-47fb-91ae-38c62dcb2c21"
+    },
+    "body": {
+      "status": "ready",
+      "database": "connected"
+    }
+  }
+}

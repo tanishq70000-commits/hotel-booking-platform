@@ -1,0 +1,37 @@
+# Production Docker Compose Override
+# Usage: docker compose -f deploy/docker-compose.yml -f deploy/docker-compose.prod.yml up -d
+
+services:
+  db:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1024M
+        reservations:
+          cpus: "0.5"
+          memory: 256M
+
+  app:
+    # Use pre-built, signed, and scanned immutable image from GHCR
+    build: !reset null
+    image: ${IMAGE_TAG:-ghcr.io/algions/hotel-reservation-api:v1.0.0}
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1024M
+        reservations:
+          cpus: "0.5"
+          memory: 256M
+
+  caddy:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+
