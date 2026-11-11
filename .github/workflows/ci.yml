@@ -203,10 +203,19 @@ jobs:
         run: |
           docker compose -f deploy/docker-compose.yml up -d
           echo "Waiting for services to become healthy..."
-          sleep 15
+          for i in {1..30}; do
+            if docker exec hotel_app curl -s -f http://localhost:8000/ready > /dev/null 2>&1; then
+              echo "App is healthy and database is connected!"
+              break
+            fi
+            echo "Waiting for app to become ready... ($i/30)"
+            sleep 2
+          done
           docker compose -f deploy/docker-compose.yml ps
-          docker exec hotel_app curl -f http://localhost:8000/health || exit 1
-          docker exec hotel_app curl -f http://localhost:8000/ready || exit 1
+          echo "Testing /health..."
+          docker exec hotel_app curl -s -f http://localhost:8000/health || (docker compose -f deploy/docker-compose.yml logs && exit 1)
+          echo "Testing /ready..."
+          docker exec hotel_app curl -s -f http://localhost:8000/ready || (docker compose -f deploy/docker-compose.yml logs && exit 1)
           docker compose -f deploy/docker-compose.yml down -v
 
   # =========================================================================

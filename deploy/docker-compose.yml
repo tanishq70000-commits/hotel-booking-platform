@@ -30,7 +30,7 @@ services:
     build:
       context: ..
       dockerfile: Dockerfile
-    image: hotel-reservation-api:local
+    image: ${IMAGE_TAG:-hotel-reservation-api:local}
     container_name: hotel_app
     restart: unless-stopped
     depends_on:
@@ -84,7 +84,7 @@ services:
     networks:
       - hotel_internal_net
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --spider --tries=1 http://localhost:80/ || exit 1"]
+      test: ["CMD-SHELL", "wget --no-verbose --spider --no-check-certificate https://localhost:443/ || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 3
