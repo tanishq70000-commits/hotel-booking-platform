@@ -1,0 +1,15 @@
+.venv
+.git
+.coverage
+.mypy_cache
+.pytest_cache
+.ruff_cache
+tests
+evidence
+backups
+*.db
+*.sqlite
+01_Cloud_Deployment_and_CI_CD_Hotel_Booking_Platform.docx
+deploy/
+docs/
+
