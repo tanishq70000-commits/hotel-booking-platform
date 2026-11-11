@@ -138,7 +138,7 @@ jobs:
           pip-audit -r requirements.txt || true
 
       - name: Run Trivy Filesystem Vulnerability Scan
-        uses: aquasecurity/trivy-action@v0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: "fs"
           ignore-unfixed: true
@@ -186,7 +186,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Run Trivy Vulnerability Scan on Built Image
-        uses: aquasecurity/trivy-action@v0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: "hotel-app:test"
           format: "table"
