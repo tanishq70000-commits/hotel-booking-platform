@@ -200,21 +200,25 @@ jobs:
           POSTGRES_DB: hotel_booking
           POSTGRES_USER: hotel_app_user
           POSTGRES_PASSWORD: test_smoke_password
+          PORT_HTTP: "8080"
+          PORT_HTTPS: "8443"
         run: |
+          sudo systemctl stop apache2 nginx 2>/dev/null || true
           docker compose -f deploy/docker-compose.yml up -d
           echo "Waiting for services to become healthy..."
           for i in {1..30}; do
-            if docker exec hotel_app curl -s -f http://localhost:8000/ready > /dev/null 2>&1; then
-              echo "App is healthy and database is connected!"
+            STATUS=$(docker inspect --format='{{json .State.Health.Status}}' hotel_app 2>/dev/null || echo "not_found")
+            echo "hotel_app status: $STATUS ($i/30)"
+            if [ "$STATUS" = '"healthy"' ]; then
+              echo "hotel_app is healthy!"
               break
             fi
-            echo "Waiting for app to become ready... ($i/30)"
             sleep 2
           done
           docker compose -f deploy/docker-compose.yml ps
-          echo "Testing /health..."
+          echo "=== Testing App Health Endpoint ==="
           docker exec hotel_app curl -s -f http://localhost:8000/health || (docker compose -f deploy/docker-compose.yml logs && exit 1)
-          echo "Testing /ready..."
+          echo "=== Testing App Ready Endpoint ==="
           docker exec hotel_app curl -s -f http://localhost:8000/ready || (docker compose -f deploy/docker-compose.yml logs && exit 1)
           docker compose -f deploy/docker-compose.yml down -v
 
